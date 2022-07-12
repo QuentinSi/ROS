@@ -228,24 +228,17 @@ int main (int argc, char** argv){
     ros::Rate loop_rate(10);
 
     while(ros::ok()){
-        ros::Time first = ros::Time::now();
         //robot_simu.init_angle();
         //robot_simu.set_angle_pan_tilt(10.0, -11.0);
         //robot_simu.move_auto_pan();
         //robot_simu.move_auto_tilt();
         //robot_simu.random_position();
-
         //robot_real.move_real_robot_single("tilt", 0.0);
         //robot_real.move_real_robot_single("pan", 1.0);
         robot_real.move_manu_real_robot_group(0.0, 0.0);
         //robot_real.move_auto_real_robot();
         //robot_real.traject();
-        ros::Time second = ros::Time::now();
-        ros::Duration diff = second-first;
         ros::spinOnce();
-        ROS_INFO("time = %lf secs", first.toSec());
-        /*ROS_INFO("second = %lf secs", second.toSec());
-        ROS_INFO("diff = %lf secs", diff.toSec());*/
         loop_rate.sleep();
     }
 }
