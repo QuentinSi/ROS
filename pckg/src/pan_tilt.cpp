@@ -116,8 +116,7 @@ private:
     sensor_msgs::JointState jointstate;
     trajectory_msgs::JointTrajectory traj;
     pckg::JointTrajectoryCommand msg_traj;
-    trajectory_msgs::JointTrajectoryPoint points_n;
-
+    //trajectory_msgs::JointTrajectoryPoint points_n;
 
 public:
     //The constructor with the subscriber and publisher
@@ -199,22 +198,21 @@ public:
         msg_traj.traj.joint_names[0]="pan";
         msg_traj.traj.joint_names[1]="tilt";
 
-        msg_traj.traj.points.resize(3);
+        msg_traj.traj.points.resize(8);
         msg_traj.traj.points[0].positions.resize(2);
-        msg_traj.traj.points[0].positions[0]=-1.0;
-        msg_traj.traj.points[0].positions[1]=-1.0;
+        msg_traj.traj.points[0].positions[0]=-3.0;
+        msg_traj.traj.points[0].positions[1]=-1.5;
         msg_traj.traj.points[0].time_from_start = ros::Duration(1);
-        real_arm_traj.publish(msg_traj);
+        //real_arm_traj.publish(msg_traj);
+        double j=-3.0;
 
-        int j=0;
-
-        for(int i=1;i<3;i++){
+        for(double i=1;i<8;i++){
 
             msg_traj.traj.points[i].positions.resize(2);
-            msg_traj.traj.points[i].positions[0]=i+0.5;
-            msg_traj.traj.points[i].positions[1]=j+0.5;
+            msg_traj.traj.points[i].positions[0]=j*1.04666667;
+            msg_traj.traj.points[i].positions[1]=(1.04666*j)/2;
             j++;
-            msg_traj.traj.points[i].time_from_start =  msg_traj.traj.points[i-1].time_from_start+ros::Duration(3.0);
+            msg_traj.traj.points[i].time_from_start =  msg_traj.traj.points[i-1].time_from_start+ros::Duration(6.0);
             real_arm_traj.publish(msg_traj);
         }
     }
@@ -235,9 +233,9 @@ int main (int argc, char** argv){
         //robot_simu.random_position();
         //robot_real.move_real_robot_single("tilt", 0.0);
         //robot_real.move_real_robot_single("pan", 1.0);
-        robot_real.move_manu_real_robot_group(0.0, 0.0);
+        //robot_real.move_manu_real_robot_group(-1.0, -1.0);
         //robot_real.move_auto_real_robot();
-        //robot_real.traject();
+        robot_real.traject();
         ros::spinOnce();
         loop_rate.sleep();
     }
