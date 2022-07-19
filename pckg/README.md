@@ -6,7 +6,7 @@ To be able to use this project it is very simple, you need the ROS environment t
 It is strongly advised to work with git, if you want to think about setting it up.
 Once your computer is ready and it works I advise you to create a project folder. In the project directory (or the name you gave it), create two new folders, for my part I had to create a package folder and another WidowX XM430 Robot Turret.
 
-                                                 mettre photo
+![folder-large](images/folder.png)
 
 Now open a terminal (Terminator) install following the previous tutorial. Why use Terminator? Terminator organizes terminals in a grid. It is useful because many terminals are usually needed simultaneously when working with ROS. 
 Then using the command cd [path] go to the folder you created (package). Once you are inside do:
@@ -58,7 +58,7 @@ $ ln -s where_git_repos_are_located/interbotix_ros_turrets
 ```
 For example, when I tested my path was:
 
-                                                    mettre photo
+![command](images/command ln -s.png)
 
 
 Once this is done we can compile this file. Just after finishing the previous commands do:
@@ -71,7 +71,7 @@ If the compilation is successful, then you are ready to use the project.
 
 Here is a diagram of what you should have on your computer before the compilation in blue and once the compilation is done the red folders are added to it(this is an example, so these are the names I decided to put, yours may be different but the structure remains the same):
 
-                                                                mettre diag
+![diagram](images/diagramme_project.png)
 
 ## Execution step
 
