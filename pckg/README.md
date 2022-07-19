@@ -20,14 +20,14 @@ If this command executes without problem, the project is compiled and you can th
 
 Let's move on to the second part so that the project is complete.
  
-- Open a second terminal and create a folder git-repos, go to the folder
-- Clone this repos in that folder :
-    - [DynamixelSDK](https://github.com/ROBOTIS-GIT/DynamixelSDK.git)
-    - [interbotix_ros_core](https://github.com/Interbotix/interbotix_ros_core.git)
-    - [interbotix_ros_toolboxes](https://github.com/Interbotix/interbotix_ros_toolboxes.git)
-    - [interbotix_ros_turrets](https://github.com/Interbotix/interbotix_ros_turrets.git)
+* Open a second terminal and create a folder git-repos, go to the folder
+* Clone this repos in that folder :
+    `*[DynamixelSDK](https://github.com/ROBOTIS-GIT/DynamixelSDK.git)`
+    `*[interbotix_ros_core](https://github.com/Interbotix/interbotix_ros_core.git)`
+    `*[interbotix_ros_toolboxes](https://github.com/Interbotix/interbotix_ros_toolboxes.git)`
+    `*[interbotix_ros_turrets](https://github.com/Interbotix/interbotix_ros_turrets.git)`
 
--  Change to noetic branch in the interbotix repos :
+*  Change to noetic branch in the interbotix repos :
 ```
 $ cd interbotix_ros_core
 $ git checkout noetic
@@ -36,7 +36,7 @@ $ git checkout noetic
 $ cd interbotix_ros_turrets
 $ git checkout noetic
 ```
-- Drop the file CATKIN IGNORE
+* Drop the file CATKIN IGNORE
 ```
 $ cd git-repos # or where you have clone the repos
 $ cd interbotix_ros_core
