@@ -24,8 +24,11 @@ Let's move on to the second part so that the project is complete.
 - Clone this repos in that folder :
 
     -- [DynamixelSDK](https://github.com/ROBOTIS-GIT/DynamixelSDK.git)
+    
     -- [interbotix_ros_core](https://github.com/Interbotix/interbotix_ros_core.git)
+    
     -- [interbotix_ros_toolboxes](https://github.com/Interbotix/interbotix_ros_toolboxes.git)
+    
     -- [interbotix_ros_turrets](https://github.com/Interbotix/interbotix_ros_turrets.git)
 
 -  Change to noetic branch in the interbotix repos :
