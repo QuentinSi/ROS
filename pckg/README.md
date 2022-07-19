@@ -22,7 +22,6 @@ Let's move on to the second part so that the project is complete.
  
 - Open a second terminal and create a folder git-repos, go to the folder
 - Clone this repos in that folder :
-
     - [DynamixelSDK](https://github.com/ROBOTIS-GIT/DynamixelSDK.git)
     - [interbotix_ros_core](https://github.com/Interbotix/interbotix_ros_core.git)
     - [interbotix_ros_toolboxes](https://github.com/Interbotix/interbotix_ros_toolboxes.git)
