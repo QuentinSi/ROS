@@ -58,12 +58,7 @@ $ ln -s where_git_repos_are_located/interbotix_ros_turrets
 ```
 For example, when I tested my path was:
 
-<<<<<<< HEAD
 ![command](images/command_ln.png)
-=======
-![command](images/command ln -s.png)
->>>>>>> 795ac675926546f9df4ab68b09d41121c7325538
-
 
 Once this is done we can compile this file. Just after finishing the previous commands do:
 ```
@@ -75,11 +70,7 @@ If the compilation is successful, then you are ready to use the project.
 
 Here is a diagram of what you should have on your computer before the compilation in blue and once the compilation is done the red folders are added to it(this is an example, so these are the names I decided to put, yours may be different but the structure remains the same):
 
-<<<<<<< HEAD
 ![diagram](images/diagram_project.png)
-=======
-![diagram](images/diagramme_project.png)
->>>>>>> 795ac675926546f9df4ab68b09d41121c7325538
 
 ## Execution step
 
