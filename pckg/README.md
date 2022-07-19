@@ -10,7 +10,7 @@ Once your computer is ready and it works I advise you to create a project folder
 
 Now open a terminal (Terminator) install following the previous tutorial. Why use Terminator? Terminator organizes terminals in a grid. It is useful because many terminals are usually needed simultaneously when working with ROS. 
 Then using the command cd [path] go to the folder you created (package). Once you are inside do:
-git clone [project git https links]
+`$ git clone [project git https links]` with this link [package](https://gitioc.upc.edu/quentin.simon/ros_internship_widowx-xm430.git)
 
 Once this is done if the project has been cloned in your reference directory, if it is good try to compile the project by simply doing:
 ```
