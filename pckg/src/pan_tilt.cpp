@@ -228,7 +228,7 @@ public:
             msg_group.cmd[1]=val_tilt;
             if (msg_group.cmd[0]>3.14) msg_group.cmd[0]=3.1388;
             else if(msg_group.cmd[0]<-3.14) msg_group.cmd[0]=-3.1388;
-            else if (msg_group.cmd[1]>1.57) msg_group.cmd[1]= 1.5689;
+            if(msg_group.cmd[1]>1.57) msg_group.cmd[1]= 1.5689;
             else if (msg_group.cmd[1]<-1.57) msg_group.cmd[1]= -1.5689;
 
             ROS_INFO_STREAM("Pan's value :" << msg_group.cmd[0]<< " and Tilt's value :" << msg_group.cmd[1] << std::endl);
@@ -347,7 +347,7 @@ int main (int argc, char** argv){
     ros::NodeHandle n;
     //Innitialize an object of the class
     pan_tilt_simu robot_simu(&n);
-    //pan_tilt_real robot_real(&n);
+    pan_tilt_real robot_real(&n);
 
     moving = false;
     ros::Rate loop_rate(10);
