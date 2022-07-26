@@ -4,23 +4,18 @@ To be able to use this project it is very simple, you need the ROS environment t
 
 
 It is strongly advised to work with git, if you want to think about setting it up.
-Once your computer is ready and it works I advise you to create a project folder. In the project directory (or the name you gave it), create two new folders, for my part I had to create a package folder and another WidowX XM430 Robot Turret.
+Once your computer is ready and working I advise you to create a project folder. In the project directory (or the name you gave it), create a new folder WidowX XM430 Robot Turret then in this one another under the name of catkin_ws and another one src. With the commande :
+'''
+$mkdir -p WidowX_XM430_Robot_Turret/catkin_ws/src
+'''
 
-![folder-large](images/folder.png)
+![folder-large](images/access_path.png)
 
 Now open a terminal (Terminator) install following the previous tutorial. Why use Terminator? Terminator organizes terminals in a grid. It is useful because many terminals are usually needed simultaneously when working with ROS. 
-Then using the command cd [path] go to the folder you created (package). Once you are inside do:
+Then using the command cd [path] go to the folder you created (catkin_ws). Once you are inside do:
 `$ git clone [project git https links]` with this [link](https://gitioc.upc.edu/quentin.simon/ros_internship_widowx-xm430.git)
-
-Once this is done if the project has been cloned in your reference directory, if it is good try to compile the project by simply doing:
-```
-$ catkin_make
-```
-If this command executes without problem, the project is compiled and you can therefore use it later because half of the files are missing for the project to work.
-
-Let's move on to the second part so that the project is complete.
  
-* Open a second terminal and create a folder git-repos, go to the folder
+* Open a second terminal and create a git-repos folder you want, you just need to know its path. Go to folder
 * Clone this repos in that folder :  
 
     -[DynamixelSDK](https://github.com/ROBOTIS-GIT/DynamixelSDK.git)  
@@ -47,9 +42,8 @@ $ cd interbotix_ros_toolboxes
 $ rm interbotix_xs_toolbox/CATKIN_IGNORE
 ```
 
-So now, in an other terminator go to the second folder (WidowX_XM430_Robot_Turret) and di this : 
+So now, in an other terminator go to the folder (WidowX_XM430_Robot_Turret) and do this : 
 ```
-$mkdir -p catkin_ws/src
 $cd catkin_ws/src
 $ ln -s where_git_repos_are_located/DynamixelSDK/ros/dynamixel_sdk
 $ ln -s where_git_repos_are_located/interbotix_ros_core
@@ -76,10 +70,10 @@ Here is a diagram of what you should have on your computer before the compilatio
 
 Before running the programs, check that you have the ttyDXL port which is the one requested to be able to run the simulation programs, if you do not have this port either you configure it or you change it in the programs of the WidowX_XM430 folder. For me, the easiest way is to use this port.
 
-As soon as the port configuration is done, open the pan_tilt.cpp file in the package folder then source. This is where you choose whether to move the gazebo simulation robot or not. Choose the right class, the program is commented, read the comments to know which class corresponds to what. If you forget or set the wrong classes the program will run fine but nothing will happen.
+As soon as the port configuration is done, open the pan_tilt.cpp file in the src folder of the pckg folder which is located in the src folder of catkin_ws of WidowX_XM430_Robot_Turret. This is where you choose whether to move the gazebo simulation robot or not. Choose the right class, the program is commented, read the comments to know which class corresponds to what. If you forget or set the wrong classes the program will run fine but nothing will happen.
 
 Open a terminal, go to the WidowX_XM430 directory then catkin_ws, once here compile then make:
-
+`$ catkin build `
 `$ source devel/setup.bash`
 
 Once this is done if you want to use the simulation made:
@@ -95,7 +89,7 @@ Or if you are not in simulation but you want to move the physical robot do:
 
 `roslaunch interbotix_xsturret_control xsturret_control.launch robot_model:=wxxms`
 
-After that open a second terminal, go to the package directory, compile the program to be sure you have no problem, then do:
+After that open a second terminal, go to the same directory as before, compile the program to be sure you have no problem with catkin build, then do:
 
 `$ source devel/setup.bash`
 
@@ -103,7 +97,9 @@ Then run the program:
 
 `rosrun pckg pan_tilt`
 
-If all goes well you will see the robot doing what you asked it to do in the pan_tilt.cpp program. Now it's up to you, you can develop, modify or simply use this project.
+For information, the project mainly works with services, check how to use services on the tutorial to be able to use the code correctly. There are only functions that allow the robot to move alone, which launches directly into the main function of pan_tilt.cpp
+
+If all goes well, you will see the robot doing what you asked it to do using the pan_tilt.cpp program. Now it's up to you, you can develop, modify or just use this project.
 
 
 
