@@ -100,8 +100,3 @@ Then run the program:
 For information, the project mainly works with services, check how to use services on the tutorial to be able to use the code correctly. There are only functions that allow the robot to move alone, which launches directly into the main function of pan_tilt.cpp
 
 If all goes well, you will see the robot doing what you asked it to do using the pan_tilt.cpp program. Now it's up to you, you can develop, modify or just use this project.
-
-
-
-
-
