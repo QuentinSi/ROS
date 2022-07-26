@@ -57,8 +57,8 @@ For example, when I tested my path was:
 
 ![command](images/command_ln.png)
 
-For pckg the command was :
-`$ ln -s ~/Escriptori/Stage_exo/tst/intership/ros_internship_widowx-xm430/pckg`
+For pckg the command was :  
+`$ ln -s ~/Escriptori/Stage_exo/tst/intership/ros_internship_widowx-xm430/pckg`  
 Or `ln -s /home/users/quentin.simon/Escriptori/Stage_exo/git-repos-tuto/ioc/ros_internship_widowx-xm430/pckg`
 
 Once this is done we can compile this file. Just after finishing the previous commands do:
