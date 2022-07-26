@@ -5,17 +5,19 @@ To be able to use this project it is very simple, you need the ROS environment t
 
 It is strongly advised to work with git, if you want to think about setting it up.
 Once your computer is ready and working I advise you to create a project folder. In the project directory (or the name you gave it), create a new folder WidowX XM430 Robot Turret then in this one another under the name of catkin_ws and another one src. With the commande :
-'''
+```
 $mkdir -p WidowX_XM430_Robot_Turret/catkin_ws/src
-'''
+```
 
 ![folder-large](images/access_path.png)
 
+After this create a git_repos, in this folder, create two folders (ioc and robot_turret).
+
 Now open a terminal (Terminator) install following the previous tutorial. Why use Terminator? Terminator organizes terminals in a grid. It is useful because many terminals are usually needed simultaneously when working with ROS. 
-Then using the command cd [path] go to the folder you created (catkin_ws). Once you are inside do:
+Then using the command cd [path] go to the folder you created (git_repos/ioc). Once you are inside do:
 `$ git clone [project git https links]` with this [link](https://gitioc.upc.edu/quentin.simon/ros_internship_widowx-xm430.git)
  
-* Open a second terminal and create a git-repos folder you want, you just need to know its path. Go to folder
+* Open a second terminal and go to the folder git_ repos_robot_turret, you need to know its path. 
 * Clone this repos in that folder :  
 
     -[DynamixelSDK](https://github.com/ROBOTIS-GIT/DynamixelSDK.git)  
@@ -49,10 +51,15 @@ $ ln -s where_git_repos_are_located/DynamixelSDK/ros/dynamixel_sdk
 $ ln -s where_git_repos_are_located/interbotix_ros_core
 $ ln -s where_git_repos_are_located/interbotix_ros_toolboxes
 $ ln -s where_git_repos_are_located/interbotix_ros_turrets
+$ ln -s where_git_ioc_are_located/pckg
 ```
 For example, when I tested my path was:
 
 ![command](images/command_ln.png)
+
+For pckg the command was :
+`$ ln -s ~/Escriptori/Stage_exo/tst/intership/ros_internship_widowx-xm430/pckg`
+Or `ln -s /home/users/quentin.simon/Escriptori/Stage_exo/git-repos-tuto/ioc/ros_internship_widowx-xm430/pckg`
 
 Once this is done we can compile this file. Just after finishing the previous commands do:
 ```
@@ -70,7 +77,7 @@ Here is a diagram of what you should have on your computer before the compilatio
 
 Before running the programs, check that you have the ttyDXL port which is the one requested to be able to run the simulation programs, if you do not have this port either you configure it or you change it in the programs of the WidowX_XM430 folder. For me, the easiest way is to use this port.
 
-As soon as the port configuration is done, open the pan_tilt.cpp file in the src folder of the pckg folder which is located in the src folder of catkin_ws of WidowX_XM430_Robot_Turret. This is where you choose whether to move the gazebo simulation robot or not. Choose the right class, the program is commented, read the comments to know which class corresponds to what. If you forget or set the wrong classes the program will run fine but nothing will happen.
+As soon as the port configuration is done, open the pan_tilt.cpp file in the src folder of the pckg folder which is located in the src folder of catkin_ws of WidowX_XM430_Robot_Turret. This is where you choose whether to move the gazebo simulation robot or not. Choose the right class, the program is commented, read the comments to know which class corresponds to what. If you forget to set the  classes the program will run fine but nothing will happen. Normaly, you can use this code without the modify, you can use thanks to services.
 
 Open a terminal, go to the WidowX_XM430 directory then catkin_ws, once here compile then make:
 `$ catkin build `
@@ -97,6 +104,10 @@ Then run the program:
 
 `rosrun pckg pan_tilt`
 
-For information, the project mainly works with services, check how to use services on the tutorial to be able to use the code correctly. There are only functions that allow the robot to move alone, which launches directly into the main function of pan_tilt.cpp
+For information, the project mainly works with services, check how to use services on the tutorial to be able to use the code correctly. There are only functions that allow the robot to move alone, which launches directly into the main function of pan_tilt.cpp.
+
+Here is an example run:
+
+![example](images/example.png)
 
 If all goes well, you will see the robot doing what you asked it to do using the pan_tilt.cpp program. Now it's up to you, you can develop, modify or just use this project.
