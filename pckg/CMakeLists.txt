@@ -8,9 +8,11 @@ add_compile_options(-std=c++11)
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
+  interbotix_xs_msgs
   roscpp
   rospy
   std_msgs
+  std_srvs
   message_generation
   geometry_msgs
   trajectory_msgs
@@ -51,19 +53,22 @@ find_package(catkin REQUIRED COMPONENTS
 ##   * add every package in MSG_DEP_SET to generate_messages(DEPENDENCIES ...)
 
 ## Generate messages in the 'msg' folder
-add_message_files(
-   FILES
-   JointSingleCommand.msg
-   JointGroupCommand.msg
-   JointTrajectoryCommand.msg
-)
+#add_message_files(
+#   FILES
+   #JointSingleCommand.msg
+   #JointGroupCommand.msg
+   #JointTrajectoryCommand.msg
+#)
 
 ## Generate services in the 'srv' folder
-# add_service_files(
-#   FILES
-#   Service1.srv
-#   Service2.srv
-# )
+ add_service_files(
+   FILES
+   move_pos_traj.srv
+   move_pos_single.srv
+   move_pos_group.srv
+   move_pos_simu.srv
+   move_pos_simu_rand.srv
+)
 
 ## Generate actions in the 'action' folder
 # add_action_files(
@@ -75,8 +80,10 @@ add_message_files(
 ## Generate added messages and services with any dependencies listed here
 generate_messages(
    DEPENDENCIES
+   interbotix_xs_msgs
    geometry_msgs
    std_msgs
+   std_srvs
    trajectory_msgs
 )
 
@@ -112,7 +119,7 @@ generate_messages(
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES pycpp
-   CATKIN_DEPENDS roscpp rospy std_msgs message_runtime trajectory_msgs
+   CATKIN_DEPENDS interbotix_xs_msgs roscpp rospy std_msgs std_srvs message_runtime trajectory_msgs 
 #  DEPENDS system_lib
 )
 
@@ -122,11 +129,11 @@ catkin_package(
 
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
-#include_directories(
+include_directories(
 #  conio.h
-#  include
-#${catkin_INCLUDE_DIRS}
-#)
+  include
+${catkin_INCLUDE_DIRS}
+)
 
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}
