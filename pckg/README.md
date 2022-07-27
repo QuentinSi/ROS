@@ -83,7 +83,7 @@ Open a terminal, go to the WidowX_XM430 directory then catkin_ws, once here comp
 `$ catkin build `
 `$ source devel/setup.bash`
 
-Once this is done if you want to use the simulation made:
+Once this is done if you want to use the simulation mode:
 
 `$roslaunch interbotix_xsturret_gazebo xsturret_gazebo.launch robot_model:=wxxms`
 

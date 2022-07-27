@@ -43,23 +43,25 @@ public:
     //constructor for gazebo simulation
     pan_tilt_simu(ros::NodeHandle *_n){
         n=_n;
-        sub = n->subscribe("wxxms/joint_states", 1000, &pan_tilt_simu::get_position_arm, this);
-        arm_pub_pan= n->advertise<std_msgs::Float64>("/wxxms/pan_controller/command", 1000);
-        arm_pub_tilt= n->advertise<std_msgs::Float64>("/wxxms/tilt_controller/command", 1000);
-        simu_mov_srv= n->advertiseService("move_robot", &pan_tilt_simu::simu_move_pos_srv, this);
-        simu_mov_rand_srv= n->advertiseService("move_rand_robot", &pan_tilt_simu::simu_move_pos_rand_srv, this);
+        sub = n->subscribe("wxxms/joint_states", 1000, &pan_tilt_simu::get_position_arm, this);//use for robot information
+        arm_pub_pan= n->advertise<std_msgs::Float64>("/wxxms/pan_controller/command", 1000);//pan controller
+        arm_pub_tilt= n->advertise<std_msgs::Float64>("/wxxms/tilt_controller/command", 1000);//tilt controller
+        simu_mov_srv= n->advertiseService("move_robot", &pan_tilt_simu::simu_move_pos_srv, this);//service for move the robot
+        simu_mov_rand_srv= n->advertiseService("move_rand_robot", &pan_tilt_simu::simu_move_pos_rand_srv, this);//service to move the robot to a random position
     }
     //function to display the data of the robot you want
+    //remove the comments from the for loop when you use the automatic functions,
+    //to be able to see the positions of the robots otherwise when you use a service the values ​​will be displayed therefore comment the for loop
     void get_position_arm(const sensor_msgs::JointState& state){
         if (state.name.size()== 2 ) {
-           for (int i=0;i<2;i++){
-           /* ROS_INFO_STREAM("\n RECEIVED JOINT VALUES :"
+           /*for (int i=0;i<2;i++){
+            ROS_INFO_STREAM("\n RECEIVED JOINT VALUES :"
                             "\n -Joint :" << state.name[i] <<
                             "\n -Position =" << state.position[i] <<
                             "\n -Velocities =" << state.velocity[i] <<
                             //"\n -Acceleration =" <<  state.accelerations[i] <<
-                            "\n -Effort =" << state.effort[i] << "\n"); */
-          }
+                            "\n -Effort =" << state.effort[i] << "\n");
+          }*/
         }
     }
     //function to set max and min values ​​for gazebo simulation
@@ -69,6 +71,7 @@ public:
         if (angle_tilt.data<-1.57) angle_tilt.data=-1.569;
         else if (angle_tilt.data>1.57) angle_tilt.data=1.569;
     }
+    //function used to request the execution of the desired function according to the values ​​and the services used
     bool simu_move_pos_srv( pckg::move_pos_simu::Request &req, pckg::move_pos_simu::Response &resp)
     {
         bool result = set_angle_pan_tilt(req.pos[0], req.pos[1]);
@@ -107,11 +110,13 @@ public:
         if(tilt_sim==1) angle_tilt.data=angle_tilt.data-0.2;
         else if (tilt_sim==0) angle_tilt.data=angle_tilt.data+0.2;
     }
+    //service function which is used when the service request for random position is used
     bool simu_move_pos_rand_srv( pckg::move_pos_simu_rand::Request &req, pckg::move_pos_simu_rand::Response &resp)
     {
         bool result = random_position();
         return result;
     }
+    //function that generates a random position of the robot by generating two values
     bool random_position(){
         if(!moving){
             moving=true;
@@ -128,7 +133,7 @@ public:
     }
 };
 
-//This is the class for only the simulation RVIZ and the real robot WidowX XM430 with its own constructor and methods
+//This is the class for only the modelization RVIZ and the real robot WidowX XM430 with its own constructor and methods
 class pan_tilt_real{
 private:
     ros::Subscriber sub;
@@ -141,12 +146,13 @@ private:
 
     ros::NodeHandle *n;
 
+    //messages declaration
     interbotix_xs_msgs::JointSingleCommand msg_single;
     interbotix_xs_msgs::JointGroupCommand msg_group;
     interbotix_xs_msgs::JointTrajectoryCommand msg_traj;
 
-    int pan =1;
-    int tilt=1;
+    int gpan =1;
+    int gtilt=1;
     double pan_pos;
     double tilt_pos;
 
@@ -165,6 +171,8 @@ public:
     }
 
     //function to display the data of the robot you want
+    //remove the comments from the for loop when you use the automatic functions,
+    //to be able to see the positions of the robots otherwise when you use a service the values ​​will be displayed therefore comment the for loop
     void get_position_arm(const sensor_msgs::JointState& state){
         if (state.name.size()== 2 ) {
            /*for (int i=0;i<2;i++){
@@ -179,6 +187,7 @@ public:
            tilt_pos = state.position[1];
         }
     }
+    //function used to request the execution of the desired function according to the values ​​and the services used
     bool move_pos_single_srv( pckg::move_pos_single::Request &req, pckg::move_pos_single::Response &resp)
     {
         bool result = move_real_robot_single(req.name_motor, req.pos);
@@ -210,6 +219,7 @@ public:
         return true;
     }
 
+    //function used to request the execution of the desired function according to the values ​​and the services used
     bool move_pos_group_srv( pckg::move_pos_group::Request &req, pckg::move_pos_group::Response &resp)
     {
         bool result = move_manu_real_robot_group(req.pos[0],req.pos[1]);
@@ -226,6 +236,8 @@ public:
             msg_group.cmd.resize(2);
             msg_group.cmd[0]=val_pan;
             msg_group.cmd[1]=val_tilt;
+
+            //set limits
             if (msg_group.cmd[0]>3.14) msg_group.cmd[0]=3.1388;
             else if(msg_group.cmd[0]<-3.14) msg_group.cmd[0]=-3.1388;
             if(msg_group.cmd[1]>1.57) msg_group.cmd[1]= 1.5689;
@@ -241,26 +253,26 @@ public:
     void move_auto_real_robot(){
         msg_group.name="all";
         msg_group.cmd.resize(2);
-        if (msg_group.cmd[0]>=3.1388) pan=1;
-        else if(msg_group.cmd[0]<= -3.1388) pan=0;
+        if (msg_group.cmd[0]>=3.1388) gpan=1;
+        else if(msg_group.cmd[0]<= -3.1388) gpan=0;
 
-        if (pan==1)msg_group.cmd[0]=msg_group.cmd[0]-0.02;
-        else if(pan==0) msg_group.cmd[0]=msg_group.cmd[0]+0.02;
+        if (gpan==1)msg_group.cmd[0]=msg_group.cmd[0]-0.02;
+        else if(gpan==0) msg_group.cmd[0]=msg_group.cmd[0]+0.02;
 
-        if (msg_group.cmd[1]>=1.5689) tilt=1;
-        else if(msg_group.cmd[1]<= -1.5689) tilt=0;
+        if (msg_group.cmd[1]>=1.5689) gtilt=1;
+        else if(msg_group.cmd[1]<= -1.5689) gtilt=0;
 
-        if (tilt==1)msg_group.cmd[1]=msg_group.cmd[1]-0.02;
-        else if(tilt==0) msg_group.cmd[1]=msg_group.cmd[1]+0.02;
+        if (gtilt==1)msg_group.cmd[1]=msg_group.cmd[1]-0.02;
+        else if(gtilt==0) msg_group.cmd[1]=msg_group.cmd[1]+0.02;
         real_arm_group.publish(msg_group);
     }
-
+    //function used to request the execution of the desired function according to the values ​​and the services used
     bool move_pos_srv( pckg::move_pos_traj::Request &req, pckg::move_pos_traj::Response &resp)
     {
         bool result = move_pos_traj(req.pos[0], req.pos[1], req.vel);
         return result;
     }
-
+    //function that sends a trajectory according to the given values
     bool move_pos_traj( double pan, double tilt, double duration)
     {
             ROS_INFO_STREAM("Moving to pan = " << pan << " and tilt = " << tilt << std::endl );
@@ -285,6 +297,7 @@ public:
             //set the trajectory
             msg_traj.traj.points.resize(9);
 
+            //set limits
             if (pan>3.14) pan = 3.139;
             else if (pan<-3.14) pan = -3.139;
 
@@ -312,6 +325,8 @@ public:
                 sig_tilt = -1;
 
             int trajpoints = 8;
+
+            //duration is the value that will be put in the terminal when requesting the service (vel). The higher vel, the slower the robot will move
             double step = duration/trajpoints;
             double t_pan, t_tilt;
             double timep = 0.;
@@ -340,13 +355,13 @@ public:
 
 };
 
-
 int main (int argc, char** argv){
     //Initialize the ROS system and become a node
     ros::init(argc, argv, "pan_tilt");
     ros::NodeHandle n;
-    //Innitialize an object of the class
-    pan_tilt_simu robot_simu(&n);
+
+    //Innitialize an instance of the class
+    //pan_tilt_simu robot_simu(&n);
     pan_tilt_real robot_real(&n);
 
     moving = false;
